@@ -45,10 +45,10 @@ class StarLink extends \yii\base\Widget
     {
         $currentUserStarred = false;
 
-        $stars = Star::GetStars($this->object->className(), $this->object->id);
+        $stars = Star::GetStars($this->object->className(), $this->object->getPrimaryKey());
         foreach ($stars as $star) {
-            if ($star->user->id == Yii::$app->user->id) {
-                $currentUserStarred= true;
+            if ($star->created_by == Yii::$app->user->id) {
+                $currentUserStarred = true;
             }
         }
 
@@ -56,59 +56,11 @@ class StarLink extends \yii\base\Widget
             'object' => $this->object,
             'stars' => $stars,
             'currentUserStarred' => $currentUserStarred,
-            'id' => $this->object->getUniqueId(),
-            'starUrl' => Url::to(['/star/star/star', 'contentModel' => $this->object->className(), 'contentId' => $this->object->id]),
-            'unstarUrl' => Url::to(['/star/star/unstar', 'contentModel' => $this->object->className(), 'contentId' => $this->object->id]),
+            'id' => $this->object->getPrimaryKey(),
+            'starUrl' => Url::to(['/star/star/star', 'contentModel' => $this->object->className(), 'contentId' => $this->object->getPrimaryKey()]),
+            'unstarUrl' => Url::to(['/star/star/unstar', 'contentModel' => $this->object->className(), 'contentId' => $this->object->getPrimaryKey()]),
             'userListUrl' => Url::to(['/like/like/user-list', 'contentModel' => $this->object->className(), 'contentId' => $this->object->getPrimaryKey()]),
-            'title' => $this->generateLikeTitleText($currentUserStarred, $stars)
         ));
-    }
-
-    private function generateLikeTitleText($currentUserLiked, $likes)
-    {
-        $userlist = ""; // variable for users output
-        $maxUser = 5; // limit for rendered users inside the tooltip
-        // if the current user also likes
-        if ($currentUserLiked == true) {
-            // if only one user likes
-            if (count($likes) == 1) {
-                // output, if the current user is the only one
-                $userlist = Yii::t('LikeModule.widgets_views_likeLink', 'You like this.');
-            } else {
-                // output, if more users like this
-                $userlist .= Yii::t('LikeModule.widgets_views_likeLink', 'You'). "\n";
-            }
-        }
-
-        for ($i = 0; $i < count($likes); $i++) {
-
-            // if only one user likes
-            if (count($likes) == 1) {
-                // check, if you liked
-                if ($likes[$i]->user->guid != Yii::$app->user->guid) {
-                    // output, if an other user liked
-                    $userlist .= Html::encode($likes[$i]->user->displayName) . Yii::t('LikeModule.widgets_views_likeLink', ' likes this.');
-                }
-            } else {
-
-                // check, if you liked
-                if ($likes[$i]->user->guid != Yii::$app->user->guid) {
-                    // output, if an other user liked
-                    $userlist .= Html::encode($likes[$i]->user->displayName). "\n";
-                }
-
-                // check if exists more user as limited
-                if ($i == $maxUser) {
-                    // output with the number of not rendered users
-                    $userlist .= Yii::t('LikeModule.widgets_views_likeLink', 'and {count} more like this.', array('{count}' => (intval(count($likes) - $maxUser))));
-
-                    // stop the loop
-                    break;
-                }
-            }
-        }
-
-        return $userlist;
     }
 
 }

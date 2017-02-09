@@ -20,6 +20,7 @@
 namespace humhub\modules\star\models;
 
 use Yii;
+use humhub\components\ActiveRecord;
 use humhub\models\Setting;
 use humhub\modules\content\components\ContentAddonActiveRecord;
 
@@ -37,7 +38,7 @@ use humhub\modules\content\components\ContentAddonActiveRecord;
  *
  * @package humhub.modules.star.models
  */
-class Star extends ContentAddonActiveRecord
+class Star extends ActiveRecord //ContentAddonActiveRecord
 {
 
     /**
@@ -63,7 +64,7 @@ class Star extends ContentAddonActiveRecord
     {
         return array(
             array(['object_model', 'object_id'], 'required'),
-            array(['id', 'object_id', 'created_by', 'updated_by'], 'integer'),
+            array(['id', 'created_by', 'updated_by'], 'integer'),
             array(['updated_at', 'created_at'], 'safe')
         );
     }
@@ -90,11 +91,6 @@ class Star extends ContentAddonActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         Yii::$app->cache->delete('stars_' . $this->object_model . "_" . $this->object_id);
-
-        $activity = new \humhub\modules\star\activities\Starred();
-        $activity->source = $this;
-        $activity->create();
-
         return parent::afterSave($insert, $changedAttributes);
     }
 

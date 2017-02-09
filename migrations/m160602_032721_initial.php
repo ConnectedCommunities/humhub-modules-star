@@ -27,7 +27,7 @@ class m160602_032721_initial extends Migration
         $this->createTable('star', array(
             'id' => 'pk',
             'object_model' => 'varchar(50) NOT NULL',
-            'object_id' => 'int(11) NOT NULL',
+            'object_id' => 'varchar(50) NOT NULL',
             'created_at' => 'datetime DEFAULT NULL',
             'created_by' => 'int(11) DEFAULT NULL',
             'updated_at' => 'datetime DEFAULT NULL',

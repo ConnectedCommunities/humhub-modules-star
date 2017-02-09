@@ -19,41 +19,22 @@
 
 use yii\helpers\Html;
 
-humhub\modules\star\Assets::register($this);
+humhub\modules\star\StarAsset::register($this);
 ?>
 
-<div class="starLinkContainer" id="starLinkContainer_<?= $id ?>">
+<span class="starLinkContainer" id="starLinkContainer_<?= $id ?>">
+
 
     <?php if (Yii::$app->user->isGuest): ?>
-        <?php echo Html::a('Star', Yii::$app->user->loginUrl, array('data-target' => '#globalModal')); ?>
+        <?php echo Html::a('<i class="fa fa-heart"></i>', Yii::$app->user->loginUrl, ['data-target' => '#globalModal']); ?>
     <?php else: ?>
-        <?php echo Html::a('<i class="fa fa-heart"></i>', $starUrl, ['style' => 'display:' . ((!$currentUserStarred) ? 'inline-block' : 'none'), 'class' => 'btn btn-default star starAnchor', 'data-objectId' => $id]); ?>
-        <?php echo Html::a('<i class="fa fa-heart" style="color: red;"></i>', $unstarUrl, ['style' => 'display:' . (($currentUserStarred) ? 'inline-block' : 'none'), 'class' => 'btn btn-default unstar starAnchor', 'data-objectId' => $id]); ?>
+        <a href="#" data-action-click="star.toggleLike" data-action-url="<?= $starUrl ?>" class="btn btn-default like likeAnchor" style="<?= (!$currentUserStarred) ? '' : 'display:none'?>">
+            <i class="fa fa-heart"></i>
+        </a>
+
+        <a href="#" data-action-click="star.toggleLike" data-action-url="<?= $unstarUrl ?>" class="btn btn-default unlike likeAnchor" style="<?= ($currentUserStarred) ? '' : 'display:none'?>">
+            <i style="color: red;" class="fa fa-heart"></i>
+        </a>
     <?php endif; ?>
 
-    <!-- We don't need to show the count for now -->
-    <div style="display:none; visibility: hidden;">
-        <?php if (count($stars) > 0) { ?>
-            <!-- Create link to show all users, who liked this -->
-            <a href="<?php echo $userListUrl; ?>" data-target="#globalModal"><span class="starCount tt" data-placement="top" data-toggle="tooltip"
-                                                                                   title="<?= $title ?>"></span></a>
-        <?php } else { ?>
-            <span class="starCount"></span>
-        <?php } ?>
-    </div>
-
-</div>
-
-<script>
-    $(function () {
-        updateStarCounters($("#starLinkContainer_<?= $id ?>"), <?= count($stars); ?>);
-        initLikeModule();
-
-        // show Tooltips on elements inside the views, which have the class 'tt'
-        $('.tt').tooltip({
-            html: false,
-            container: 'body'
-        });
-
-    });
-</script>
+</span>

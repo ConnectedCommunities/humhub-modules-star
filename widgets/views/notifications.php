@@ -24,7 +24,7 @@ use humhub\modules\mail\Assets;
 $this->registerjsVar('mail_loadMessageUrl', Url::to(['/mail/mail/show', 'id' => '-messageId-']));
 $this->registerjsVar('mail_viewMessageUrl', Url::to(['/mail/mail/index', 'id' => '-messageId-']));
 
-\humhub\modules\star\Assets::register($this);
+\humhub\modules\star\StarAsset::register($this);
 ?>
 <div class="btn-group">
     <a href="#" id="icon-star-module" class="dropdown-toggle" data-toggle="dropdown">

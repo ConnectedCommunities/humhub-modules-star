@@ -66,13 +66,13 @@ class StarController extends ContentContainerController
     public function beforeAction($action)
     {
         $modelClass = Yii::$app->request->get('contentModel');
-        $pk = (int) Yii::$app->request->get('contentId');
+        $pk = Yii::$app->request->get('contentId');
 
         if ($modelClass == "" || $pk == "") {
             throw new HttpException(500, 'Model & ID parameter required!');
         }
 
-        $target = $modelClass::findOne(['id' => $pk]);
+        $target = $modelClass::get($pk);
 
         $this->contentModel = get_class($target);
         $this->contentId = $target->getPrimaryKey();
@@ -131,7 +131,7 @@ class StarController extends ContentContainerController
         $likes = Star::GetStars($this->contentModel, $this->contentId);
 
         foreach ($likes as $like) {
-            if ($like->user->id == Yii::$app->user->id) {
+            if ($like->created_by == Yii::$app->user->id) {
                 $currentUserLiked = true;
             }
         }

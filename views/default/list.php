@@ -27,7 +27,7 @@
         $objectModel = $star->object_model;
         $objectId = $star->object_id;
 
-        $object = $objectModel::findOne(['id' => $objectId]);
+        $object = $objectModel::get($objectId);
 
         $star->starredItemClass = $object->starredItemClass;
         echo $star->getStarredItemWidget([
