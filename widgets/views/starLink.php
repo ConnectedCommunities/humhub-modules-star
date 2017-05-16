@@ -28,12 +28,12 @@ humhub\modules\star\StarAsset::register($this);
     <?php if (Yii::$app->user->isGuest): ?>
         <?php echo Html::a('<i class="fa fa-heart"></i>', Yii::$app->user->loginUrl, ['data-target' => '#globalModal']); ?>
     <?php else: ?>
-        <a href="#" data-action-click="star.toggleLike" data-action-url="<?= $starUrl ?>" class="btn btn-default like likeAnchor" style="<?= (!$currentUserStarred) ? '' : 'display:none'?>">
-            <i class="fa fa-heart"></i>
+        <a href="#" data-action-click="star.toggleLike" data-action-url="<?= $starUrl ?>" class="btn <?= $btnClass ?> like likeAnchor" style="<?= (!$currentUserStarred) ? '' : 'display:none'?>">
+            <?php echo $btnStarText; ?>
         </a>
 
-        <a href="#" data-action-click="star.toggleLike" data-action-url="<?= $unstarUrl ?>" class="btn btn-default unlike likeAnchor" style="<?= ($currentUserStarred) ? '' : 'display:none'?>">
-            <i style="color: red;" class="fa fa-heart"></i>
+        <a href="#" data-action-click="star.toggleLike" data-action-url="<?= $unstarUrl ?>" class="btn <?= $btnClass ?>  unlike likeAnchor" style="<?= ($currentUserStarred) ? '' : 'display:none'?>">
+            <?php echo $btnUnstarText; ?>
         </a>
     <?php endif; ?>
 

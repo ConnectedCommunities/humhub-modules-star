@@ -39,6 +39,28 @@ class StarLink extends \yii\base\Widget
     public $object;
 
     /**
+     * Class to be applied to the "star" button
+     *
+     * @var string
+     */
+    public $btnClass = 'btn-default';
+
+    /**
+     * Text to show when clicking will star.
+     *
+     * @var string
+     */
+    public $btnStarText = "<i class=\"fa fa-heart\"></i>";
+
+    /**
+     * Text to show when clicking will unstar
+     *
+     * @var string
+     */
+    public $btnUnstarText = "<i style=\"color: red;\" class=\"fa fa-heart\"></i>";
+
+
+    /**
      * Executes the widget.
      */
     public function run()
@@ -57,6 +79,9 @@ class StarLink extends \yii\base\Widget
             'stars' => $stars,
             'currentUserStarred' => $currentUserStarred,
             'id' => $this->object->getPrimaryKey(),
+            'btnClass' => $this->btnClass,
+            'btnStarText' => $this->btnStarText,
+            'btnUnstarText' => $this->btnUnstarText,
             'starUrl' => Url::to(['/star/star/star', 'contentModel' => $this->object->className(), 'contentId' => $this->object->getPrimaryKey()]),
             'unstarUrl' => Url::to(['/star/star/unstar', 'contentModel' => $this->object->className(), 'contentId' => $this->object->getPrimaryKey()]),
             'userListUrl' => Url::to(['/like/like/user-list', 'contentModel' => $this->object->className(), 'contentId' => $this->object->getPrimaryKey()]),
