@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Connected Communities Initiative
  * Copyright (C) 2016 Queensland University of Technology

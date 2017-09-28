@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Connected Communities Initiative
  * Copyright (C) 2016 Queensland University of Technology
@@ -24,16 +25,22 @@
 
         $star = $userMessage;
 
+
         $objectModel = $star->object_model;
         $objectId = $star->object_id;
 
         $object = $objectModel::get($objectId);
 
-        $star->starredItemClass = $object->starredItemClass;
-        echo $star->getStarredItemWidget([
-            'object' => $object,
-            'star' => $star,
-        ]);
+        if($object) {
+
+            $star->starredItemClass = $object->starredItemClass;
+            echo $star->getStarredItemWidget([
+                'object' => $object,
+                'star' => $star,
+            ]);
+
+        }
+
 
     }
     ?>
