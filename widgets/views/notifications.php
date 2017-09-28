@@ -30,7 +30,6 @@ $this->registerjsVar('mail_viewMessageUrl', Url::to(['/mail/mail/index', 'id' =>
     <a href="#" id="icon-star-module" class="dropdown-toggle" data-toggle="dropdown">
         <i class="fa fa-star"></i>
     </a>
-    <span id="badge-count" style="display:none;" class="label label-danger label-notification">1</span>
     <ul id="dropdown-star-list" class="dropdown-menu">
     </ul>
 </div>
