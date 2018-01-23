@@ -28,12 +28,20 @@ class Notifications extends Widget
 {
 
     /**
+     * Icon to show in the "open star list" menu button
+     *
+     * @var string
+     */
+    public $starIcon = "<i class=\"fa fa-heart\"></i>";
+
+    /**
      * Creates the Notifications Widget
      */
     public function run()
     {
         return $this->render('notifications', array(
-            'badgeCount' => 1
+            'badgeCount' => 1,
+            'starIcon' => $this->starIcon
         ));
     }
 
