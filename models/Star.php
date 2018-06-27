@@ -19,6 +19,7 @@
 
 namespace humhub\modules\star\models;
 
+use humhub\modules\user\models\User;
 use Yii;
 use humhub\components\ActiveRecord;
 use humhub\models\Setting;
@@ -67,6 +68,12 @@ class Star extends ActiveRecord //ContentAddonActiveRecord
             array(['id', 'created_by', 'updated_by'], 'integer'),
             array(['updated_at', 'created_at'], 'safe')
         );
+    }
+
+
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'created_by']);
     }
 
     /**
